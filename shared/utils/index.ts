@@ -21,7 +21,7 @@ export function createSuccessResponce<T>(
   return createApiResponse(true, data, message);
 }
 
-export function createErrorResponce(error: string): ApiResponse {
+export function createErrorResponse(error: string): ApiResponse {
   return createApiResponse(false, undefined, undefined, error);
 }
 
