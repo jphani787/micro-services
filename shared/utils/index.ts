@@ -14,7 +14,7 @@ export function createApiResponse<T>(
   };
 }
 
-export function createSuccessResponce<T>(
+export function createSuccessResponse<T>(
   data: T,
   message?: string
 ): ApiResponse<T> {
