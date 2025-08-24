@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { JWTPayload } from "../../../shared/types";
 
 // Mock environment variables
 process.env.JWT_SECRET = "test-jwt-secret-key-for-testing-only";
@@ -32,6 +33,29 @@ const mockPrismaClient = {
 jest.mock("../src/database", () => mockPrismaClient);
 
 global.mockPrisma = mockPrismaClient;
+
+export const testUser = {
+  id: "test-uuid-1234",
+  email: "testuser1234@domain.com",
+  password: "$2a$04$hashedpasswordfortestingpurposes",
+  createdAt: new Date("2025-08-01T00:00:00Z"),
+  updatedAt: new Date("2025-08-01T00:00:00Z"),
+};
+
+export const testRefreshToken = {
+  id: "test-refreshToken-id",
+  userId: testUser.id,
+  token: "test-refresh-token",
+  expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  createdAt: Date.now(),
+};
+
+export const testJwtPayload: JWTPayload = {
+  userId: testUser.id,
+  email: testUser.email,
+  iat: Math.floor(Date.now() / 1000),
+  exp: Math.floor(Date.now() / 1000) + 60 * 15,
+};
 
 export function resetAllMocks() {
   Object.values(mockPrismaClient.user).forEach((mock) => {

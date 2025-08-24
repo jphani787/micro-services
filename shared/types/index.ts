@@ -5,6 +5,26 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface UserProfile {
+  id: string;
+  userId: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  bio?: string | null;
+  avatarUrl?: string | null;
+  preferences?: any;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface UpdateUserProfile {
+  firstName?: string | null;
+  lastName?: string | null;
+  bio?: string | null;
+  avatarUrl?: string | null;
+  preferences?: Record<string, any>;
+}
+
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
@@ -25,6 +45,13 @@ export interface JWTPayload {
   exp: number;
 }
 
+export interface ServiceResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+
 export class ServiceError extends Error {
   statusCode: number;
   code?: string;
@@ -42,4 +69,13 @@ export class ServiceError extends Error {
     this.code = code;
     this.details = details;
   }
+}
+
+export function logError(error: Error, context?: Record<string, any>): void {
+  console.error("Error:", {
+    message: error.message,
+    stack: error.stack,
+    context,
+    timeStamp: new Date().toISOString(),
+  });
 }

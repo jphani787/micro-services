@@ -8,7 +8,7 @@ import {
   getProfile,
   deleteUser,
 } from "./auth.controller";
-import { validateSchema } from "../../../shared/middleware";
+import { authenticateToken, validateSchema } from "../../../shared/middleware";
 import { registerSchema, loginSchema, refreshTokenSchema } from "./validation";
 
 const router = Router();
@@ -19,7 +19,7 @@ router.post("/refresh", validateSchema(refreshTokenSchema), refreshToken);
 router.post("/logout", validateSchema(refreshTokenSchema), logout);
 
 router.post("/validate", validateToken);
-router.get("/profile", getProfile);
-router.delete("/profile", deleteUser);
+router.get("/profile", authenticateToken, getProfile);
+router.delete("/profile", authenticateToken, deleteUser);
 
 export default router;
