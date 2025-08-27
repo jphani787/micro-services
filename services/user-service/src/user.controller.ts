@@ -14,7 +14,6 @@ export const getProfile = asyncHandler(async (req: Request, res: Response) => {
     res.status(401).json(createErrorResponse("User not authenticated"));
     return;
   }
-
   const profile = await userService.getProfile(userId);
   if (!profile) {
     res.status(404).json(createErrorResponse("Profile not found"));

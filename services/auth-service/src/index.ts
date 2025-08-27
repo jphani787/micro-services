@@ -3,7 +3,11 @@ import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import authRoutes from "./routes";
-import { errorHandler, corsOptions } from "../../../shared/middleware";
+import {
+  errorHandler,
+  corsOptions,
+  healthCheck,
+} from "../../../shared/middleware";
 
 dotenv.config();
 
@@ -16,7 +20,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRoutes);
-
+app.use("/health", healthCheck);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

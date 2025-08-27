@@ -25,6 +25,36 @@ export interface UpdateUserProfile {
   preferences?: Record<string, any>;
 }
 
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  isDeleted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  tags?: Tag[];
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  color?: string;
+  userId: string;
+  updatedAt: Date;
+}
+
+export interface CreateNoteRrequest {
+  title: string;
+  content: string;
+  tagIds?: string[];
+}
+
+export interface UpdateNoteRequest {
+  title?: string;
+  content?: string;
+  tagIds?: string[];
+}
+
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;

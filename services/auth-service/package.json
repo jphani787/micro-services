@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec npx ts-node --transpile-only src/index.ts",
+    "dev": "nodemon --exec ts-node --transpile-only src/index.ts",
+    "dev2": "nodemon --exec npx ts-node --transpile-only src/index.ts",
     "test": "jest"
   },
   "keywords": [],

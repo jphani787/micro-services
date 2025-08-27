@@ -1,4 +1,4 @@
-import { authenticateToken, validateSchema } from "../../../shared/middleware";
+import { authenticateToken, validateRequest } from "../../../shared/middleware";
 import * as userController from "./user.controller";
 import { Router } from "express";
 import { updateProfileSchema, createProfileSchema } from "./validation";
@@ -9,13 +9,13 @@ router.get("/profile", authenticateToken, userController.getProfile);
 router.put(
   "/profile",
   authenticateToken,
-  validateSchema(updateProfileSchema),
+  validateRequest(updateProfileSchema),
   userController.updateProfile
 );
 router.post(
   "/profile",
   authenticateToken,
-  validateSchema(createProfileSchema),
+  validateRequest(createProfileSchema),
   userController.createProfile
 );
 router.delete("/profile", authenticateToken, userController.deleteProfile);

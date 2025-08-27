@@ -69,12 +69,12 @@ router.use(
   })
 );
 
-// router.use(
-//   "/api/notes",
-//   createServerProxy(servicesConfig.notes.url, {
-//     "^/api/notes": "/notes",
-//   })
-// );
+router.use(
+  "/api/notes",
+  createServerProxy(servicesConfig.notes.url, {
+    "^/api/notes": "/notes",
+  })
+);
 
 // router.use(
 //   "/api/tags",

@@ -51,7 +51,7 @@ export function asyncHandler(
   };
 }
 
-export function validateSchema(schema: any) {
+export function validateRequest(schema: any) {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);
 
@@ -72,7 +72,7 @@ export function validateSchema(schema: any) {
       });
     }
 
-    next();
+    return next();
   };
 }
 
@@ -103,4 +103,8 @@ export function corsOptions() {
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   };
+}
+
+export function healthCheck(req: Request, res: Response) {
+  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
 }
