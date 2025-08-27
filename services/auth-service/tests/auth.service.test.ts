@@ -1,4 +1,4 @@
-import { beforeAll, jest, it, expect } from "@jest/globals";
+// import { beforeAll, jest, it, expect } from "@jest/globals";
 import { AuthService } from "../src/auth.service";
 
 jest.mock("bcryptjs", () => ({
@@ -28,7 +28,7 @@ import {
 import { fail } from "assert";
 import { ServiceError } from "../../../shared/types";
 
-const mockedUuidv4 = uuidv4 as unknown as jest.Mock<() => string>;
+const mockedUuidv4 = uuidv4 as unknown as jest.Mock<string, []>;
 const mockedBcrypt = bcrypt as jest.Mocked<typeof bcrypt>;
 const mockedJwt = jwt as jest.Mocked<typeof jwt>;
 
@@ -55,8 +55,8 @@ describe("AuthService", () => {
     authService = new AuthService();
     mockedUuidv4.mockReturnValue("test-uuid-1234");
 
-    (mockedBcrypt.hash as jest.Mock<any>).mockResolvedValue("hashed-password");
-    (mockedBcrypt.compare as jest.Mock<any>).mockResolvedValue(true);
+    (mockedBcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
+    (mockedBcrypt.compare as jest.Mock).mockResolvedValue(true);
     (mockedJwt.sign as jest.Mock).mockReturnValue("test-jwt-token");
     (mockedJwt.verify as jest.Mock).mockReturnValue(testJwtPayload);
   });
@@ -89,15 +89,11 @@ describe("AuthService", () => {
     const password = "test-password";
 
     it("should register a new user", async () => {
-      (global.mockPrisma.user.findUnique as jest.Mock<any>).mockResolvedValue(
-        null
+      (global.mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+      (global.mockPrisma.user.create as jest.Mock).mockResolvedValue(testUser);
+      (global.mockPrisma.refreshToken.create as jest.Mock).mockResolvedValue(
+        testRefreshToken
       );
-      (global.mockPrisma.user.create as jest.Mock<any>).mockResolvedValue(
-        testUser
-      );
-      (
-        global.mockPrisma.refreshToken.create as jest.Mock<any>
-      ).mockResolvedValue(testRefreshToken);
 
       const result = await authService.register(email, password);
 
@@ -122,7 +118,7 @@ describe("AuthService", () => {
     it("should throw an error if user already exists", async () => {
       const email = "test@example.com";
       const password = "test-password";
-      (global.mockPrisma.user.findUnique as jest.Mock<any>).mockResolvedValue(
+      (global.mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(
         testUser
       );
 
@@ -138,10 +134,8 @@ describe("AuthService", () => {
     it("Should handle database errors during creation", async () => {
       const email = "test@example.com";
       const password = "test-password";
-      (global.mockPrisma.user.findUnique as jest.Mock<any>).mockResolvedValue(
-        null
-      );
-      (global.mockPrisma.user.create as jest.Mock<any>).mockRejectedValue(
+      (global.mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+      (global.mockPrisma.user.create as jest.Mock).mockRejectedValue(
         new Error("DB Error")
       );
 
