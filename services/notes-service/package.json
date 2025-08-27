@@ -1,0 +1,29 @@
+{
+  "name": "notes-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node --transpile-only src/index.ts",
+    "dev2": "nodemon --exec npx ts-node --transpile-only src/index.ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.15.0"
+  }
+}
