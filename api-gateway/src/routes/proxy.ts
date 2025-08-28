@@ -76,11 +76,11 @@ router.use(
   })
 );
 
-// router.use(
-//   "/api/tags",
-//   createServerProxy(servicesConfig.tags.url, {
-//     "^/api/tags": "/tags",
-//   })
-// );
+router.use(
+  "/api/tags",
+  createServerProxy(servicesConfig.tags.url, {
+    "^/api/tags": "/tags",
+  })
+);
 
 export default router;

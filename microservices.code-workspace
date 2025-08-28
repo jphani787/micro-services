@@ -1,12 +1,20 @@
 {
     "folders": [
         {
-            "name":"user-service",
+            "name":"User Service",
             "path":"./services/user-service"
         },
         {
-            "name":"auth-service",
+            "name":"Auth Service",
             "path":"./services/auth-service"
+        },
+        {
+            "name":"Notes Service",
+            "path":"./services/notes-service"
+        },
+        {
+            "name":"Tags Service",
+            "path":"./services/tags-service"
         },
         {
             "name":"shared",
