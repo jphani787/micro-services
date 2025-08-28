@@ -43,6 +43,11 @@ export interface Tag {
   updatedAt: Date;
 }
 
+export interface CreateTagRequest {
+  name: string;
+  color?: string;
+}
+
 export interface CreateNoteRrequest {
   title: string;
   content: string;
