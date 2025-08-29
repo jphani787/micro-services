@@ -59,8 +59,8 @@ export class TagsService {
   }
 
   async getTagsByUser(
-    page: number,
-    limit: number,
+    page: number = 1,
+    limit: number = 50,
     search?: string,
     userId?: string
   ): Promise<{
@@ -98,6 +98,33 @@ export class TagsService {
       total,
       page,
       totalPages,
+    };
+  }
+
+  async validateTags(
+    tagIds: string[],
+    userId: string
+  ): Promise<{
+    validTags: Tag[];
+    invalidTags: string[];
+  }> {
+    const validTags: Tag[] = [];
+    const invalidTagIds: string[] = [];
+    for (const tagId of tagIds) {
+      if (!isValidUUID(tagId)) {
+        invalidTagIds.push(tagId);
+        continue;
+      }
+      try {
+        const tag = await this.getTagById(tagId, userId);
+        validTags.push(tag);
+      } catch (error) {
+        invalidTagIds.push(tagId);
+      }
+    }
+    return {
+      validTags,
+      invalidTags: invalidTagIds,
     };
   }
 

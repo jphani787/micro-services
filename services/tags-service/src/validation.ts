@@ -68,3 +68,19 @@ export const getTagsByUserSchema = Joi.object({
     "string.max": "Search query must not exceed 100 characters.",
   }),
 });
+
+export const validateTagsSchema = Joi.object({
+  tagIds: Joi.array().items(Joi.string().uuid()).min(1).required().messages({
+    "array.base": "Tag IDs must be an array",
+    "array.min": "At least one tag ID is required",
+    "string.uuid": "Each tag ID must be a valid UUID",
+    "any.required": "Tag IDs are required",
+  }),
+});
+
+export const tagIdParamSchema = Joi.object({
+  tagId: Joi.string().uuid().required().messages({
+    "string.uuid": "Tag ID must be a valid UUID",
+    "any.required": "Tag ID is required",
+  }),
+});

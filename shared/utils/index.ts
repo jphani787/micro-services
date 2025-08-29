@@ -43,3 +43,12 @@ export function isValidUUID(uuid: string): boolean {
     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
   return regex.test(uuid);
 }
+
+export function parseEnvInt(
+  value: string | undefined,
+  defaultValue: number
+): number {
+  if (!value) return defaultValue;
+  const parsedValue = parseInt(value || "", 10);
+  return isNaN(parsedValue) ? defaultValue : parsedValue;
+}
